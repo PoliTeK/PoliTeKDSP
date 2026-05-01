@@ -43,9 +43,5 @@ private:
     float _bessel4_a[_Bessel4ORDER + 1] = {1.00000000f, 0.77973170f, 0.45580012f, 0.09992817f, 0.01140001f};
     float _Bessel4_buff[_Bessel4ORDER] = {0.0f, 0.0f, 0.0f, 0.0f};
 
-    // --- Bessel 4nd Order ---
-    static const int _Bessel4ORDER = 4;
-    float _bessel4_b[_Bessel4ORDER + 1] = {0.00002987f, 0.00011946f, 0.00017920f, 0.00011946f, 0.00002987f};
-    float _bessel4_a[_Bessel4ORDER + 1] = {1.00000000f, -3.52224590f, 4.66711231f, -2.75679304f, 0.61240450f};
-    float _Bessel4_buff[_Bessel4ORDER] = {0.0f, 0.0f, 0.0f, 0.0f};
+  
 };
