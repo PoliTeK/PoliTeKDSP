@@ -3,8 +3,8 @@ clc
 clear
 
 fs = 200;           % Frequenza di campionamento
-fc_bes = 5;         % Cutoff Bessel
-fc_but = 4;         % Cutoff Butterworth
+fc_bes = 99;         % Cutoff Bessel
+fc_but = 99;         % Cutoff Butterworth
 
 % --- CALCOLO COEFFICIENTI ---
 [b_but2, a_but2] = butter(2, fc_but/(fs/2), 'low');
