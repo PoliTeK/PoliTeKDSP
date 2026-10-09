@@ -37,20 +37,13 @@ float Oscillator::Process()
         
         case WAVE_SAW:
         {
-            // shape_ (0.0 -> 1.0) trasforma gradualmente una Saw normale (1x)
-            // in una Double Saw (2x, un'ottava sopra) creando un reset a metà fase.
-            
-            if (phase_ < 0.5f) {
-                // Prima metà dell'onda
-                // A shape 0: scende linearmente da 1.0 a 0.0
-                // A shape 1: scende linearmente da 1.0 a -1.0 (ciclo completo)
-                out = 1.0f - 2.0f * phase_ * (1.0f + shape_);
-            } 
-            else {
-                // Seconda metà dell'onda
-                // A shape 0: scende da 0.0 a -1.0
-                // A shape 1: riparte da 1.0 e scende a -1.0 (secondo ciclo completo)
-                out = shape_ - 2.0f * (phase_ - 0.5f) * (1.0f + shape_);
+            if ((phase_ > (c_ - 0.05f) && phase_ < (0.95f - c_)) || c_ == 0.0f)
+            {
+                out = -1.0f + (phase_ * 2.0f); // Corretto l'=- ambiguo
+            }
+            else
+            {
+                out = 1.0f - (phase_ * 2.0f);
             }
             break;
         }

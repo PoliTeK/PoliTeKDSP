@@ -70,12 +70,16 @@ class Oscillator
     */
     inline void SetFreq(const float f)
     {
-        freq_      = f;
+        freq_ = f;
         float detune_multiplier = powf(2.0f, detune_cents_ / 1200.0f);
-        float final_freq = freq_ * detune_multiplier;
+        float octave_multiplier = powf(2.0f, _octave - 2.0f); // Assuming octave 2 is the base octave (1x frequency)
+        float final_freq = freq_ * detune_multiplier * octave_multiplier;
         phase_inc_ = CalcPhaseInc(final_freq);
     }
 
+    /* * Sets the octave of the oscillator.
+    */
+    void SetOctave(uint8_t octave){ _octave = daisysp::fclamp(octave, 0, 4); }
 
     /** Sets the amplitude of the waveform.
     */
@@ -86,9 +90,13 @@ class Oscillator
     {
         waveform_ = wf < WAVE_LAST ? wf : WAVE_SIN;
     }
-    /** Sets the pulse width for WAVE_SQUARE and WAVE_POLYBLEP_SQUARE (range 0 - 1)
+    /** Sets the Shape 
      */
-    inline void SetShape(const float shape) { shape_ = daisysp::fclamp(shape, 0.0f, 1.0f); }
+    inline void SetShape(const float shape) 
+    { 
+        shape_ = daisysp::fclamp(shape, 0.0f, 1.0f); 
+        c_ = shape* 0.25;
+    }
 
     /** Returns true if cycle is at end of rise. Set during call to Process.
     */
@@ -120,8 +128,8 @@ class Oscillator
 
   private:
     float   CalcPhaseInc(float f);
-    uint8_t waveform_;
-    float   amp_, freq_, shape_, detune_cents_;
+    uint8_t waveform_, _octave;
+    float   amp_, freq_, shape_, detune_cents_, c_;
     float   sr_, sr_recip_, phase_, phase_inc_;
     float   last_out_, last_freq_;
     bool    eor_, eoc_;
