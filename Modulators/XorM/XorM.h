@@ -5,7 +5,8 @@
 
 #include <stdint.h>
 #include <math.h>
-
+namespace politekdsp
+{
 class XorM
 {
 public:
@@ -25,6 +26,6 @@ private:
     int16_t _mask;
     float _masked;
 };
-
+};
 
 #endif

@@ -1,5 +1,7 @@
 
 #include "XorM.h"
+
+using namespace politekdsp;
 XorM::XorM() {}
 XorM::~XorM() {}
 
